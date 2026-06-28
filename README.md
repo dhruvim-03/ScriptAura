@@ -105,12 +105,12 @@ graph TD
     B -->|Redux State| F[📦 Redux Store]
     C -->|JSON Response| B
 
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#61DAFB,stroke:#333,stroke-width:2px
-    style C fill:#68A063,stroke:#333,stroke-width:2px
-    style D fill:#4EA94B,stroke:#333,stroke-width:2px
-    style E fill:#FFD700,stroke:#333,stroke-width:2px
-    style F fill:#764ABC,stroke:#333,stroke-width:2px
+style A fill:#C71585,stroke:#333,stroke-width:2px
+style B fill:#0077B6,stroke:#333,stroke-width:2px
+style C fill:#2D6A4F,stroke:#333,stroke-width:2px
+style D fill:#1B5E20,stroke:#333,stroke-width:2px
+style E fill:#B8860B,stroke:#333,stroke-width:2px
+style F fill:#4A235A,stroke:#333,stroke-width:2px
 ```
 
 ---
@@ -118,70 +118,35 @@ graph TD
 ## 👤 User Flow
 
 ```mermaid
-flowchart LR
+flowchart TD
     A([🏠 Home]) --> B([📖 All Books])
     B --> C([🔍 Filter by Genre])
     C --> D([📘 Book Details])
-    D --> E{Logged In?}
+    D --> E{🔑 Logged In?}
     E -->|No| F([🔐 Login / Signup])
-    F --> G([🛒 Add to Cart])
-    E -->|Yes| G
+    E -->|Yes| G([🛒 Add to Cart])
+    F --> G
     G --> H([💳 Checkout])
-    H --> I([✅ Order Placed])
-    I --> J([📦 Order History])
+    H --> I1([📦 Cash on Delivery]) & I2([💻 Online Payment])
+    I1 --> J([✅ Order Placed])
+    I2 --> J
+    J --> K1([📋 Order History]) & K2([❤️ Favourites]) & K3([👤 Profile])
 
-    style A fill:#8B4513,color:#fff
-    style I fill:#4EA94B,color:#fff
-    style F fill:#FFD700,color:#333
+    style A fill:#5C3317,color:#fff,stroke:#3B1F0A,stroke-width:3px
+    style B fill:#1A3A5C,color:#fff,stroke:#0D2137,stroke-width:3px
+    style C fill:#1A3A5C,color:#fff,stroke:#0D2137,stroke-width:3px
+    style D fill:#1A3A5C,color:#fff,stroke:#0D2137,stroke-width:3px
+    style E fill:#7B4F00,color:#fff,stroke:#4A3000,stroke-width:3px
+    style F fill:#6B0000,color:#fff,stroke:#3D0000,stroke-width:3px
+    style G fill:#1A3A5C,color:#fff,stroke:#0D2137,stroke-width:3px
+    style H fill:#7B4F00,color:#fff,stroke:#4A3000,stroke-width:3px
+    style I1 fill:#4A235A,color:#fff,stroke:#2D1636,stroke-width:3px
+    style I2 fill:#4A235A,color:#fff,stroke:#2D1636,stroke-width:3px
+    style J fill:#1A5C2A,color:#fff,stroke:#0D3718,stroke-width:3px
+    style K1 fill:#1A5C2A,color:#fff,stroke:#0D3718,stroke-width:3px
+    style K2 fill:#6B0000,color:#fff,stroke:#3D0000,stroke-width:3px
+    style K3 fill:#5C3317,color:#fff,stroke:#3B1F0A,stroke-width:3px
 ```
-
----
-
-## 🗄️ Database Design
-
-```mermaid
-erDiagram
-    USER {
-        string username
-        string email
-        string password
-        string avatar
-        string address
-        string role
-    }
-    BOOK {
-        string title
-        string author
-        string genre
-        number price
-        string description
-        string url
-    }
-    ORDER {
-        string books
-        number price
-        string status
-        string paymentMode
-        date orderDate
-    }
-    CART {
-        objectId bookId
-        objectId userId
-    }
-    FAVOURITE {
-        objectId bookId
-        objectId userId
-    }
-
-    USER ||--o{ ORDER : places
-    USER ||--o{ CART : has
-    USER ||--o{ FAVOURITE : saves
-    BOOK ||--o{ CART : "added to"
-    BOOK ||--o{ FAVOURITE : "saved in"
-    BOOK ||--o{ ORDER : "included in"
-```
-
----
 
 ## 📁 Folder Structure
 
